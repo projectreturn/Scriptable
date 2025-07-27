@@ -2,64 +2,128 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Scriptable Import</title>
+  <title>Scriptable Import in 3 Schritten</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
         Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-      text-align: center;
-      padding: 2rem;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
       background-color: #f0f0f5;
       color: #333;
+      text-align: center;
     }
     h1 {
-      margin-bottom: 1rem;
-    }
-    p {
-      font-size: 1.1rem;
       margin-bottom: 2rem;
+    }
+    section {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     button {
       background-color: #007aff;
       border: none;
       color: white;
-      padding: 1rem 3rem;
-      font-size: 1.5rem;
+      padding: 1rem 2.5rem;
+      font-size: 1.3rem;
       border-radius: 12px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      margin-top: 1rem;
     }
     button:hover {
       background-color: #005ecb;
     }
-    #fallback {
-      margin-top: 2rem;
-      display: none;
+    pre {
+      background: #222;
+      color: #0f0;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 1rem;
+      overflow-x: auto;
+      user-select: all;
+      margin-top: 1rem;
+    }
+    .copied {
+      color: green;
+      margin-top: 0.5rem;
+      font-weight: bold;
+    }
+    a.store-link {
+      text-decoration: none;
+      color: white;
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 12px;
+      background-color: #28a745;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+    }
+    a.store-link:hover {
+      background-color: #1e7e34;
     }
   </style>
-  <script>
-    function redirectToScriptable() {
-      // Versuche weiterzuleiten
-      window.location.href = "scriptable://import?url=https://raw.githubusercontent.com/projectreturn/Scriptable/main/SennelagerRangeAccess/SRA-Medium.js";
-    }
-
-    window.onload = function () {
-      // Kurz verzögert weiterleiten, so klappt es oft besser auf iOS
-      setTimeout(redirectToScriptable, 500);
-
-      // Fallback Button zeigen, falls keine Weiterleitung passiert
-      setTimeout(function () {
-        document.getElementById("fallback").style.display = "block";
-      }, 2500);
-    };
-  </script>
 </head>
 <body>
-  <h1>Scriptable Import</h1>
-  <p>Du wirst gleich zu Scriptable weitergeleitet, um das Script zu importieren.</p>
 
-  <div id="fallback">
-    <button onclick="redirectToScriptable()">Script importieren</button>
-  </div>
+  <h1>Scriptable Import in 3 Schritten</h1>
+
+  <section>
+    <h2>Schritt 1: Scriptable aus dem App Store laden</h2>
+    <a class="store-link" href="https://apps.apple.com/app/scriptable/id1405459188" target="_blank" rel="noopener noreferrer">
+      Scriptable im App Store öffnen
+    </a>
+  </section>
+
+  <section>
+    <h2>Schritt 2: Source-Code kopieren</h2>
+    <p>Klicke auf den Button, um den Script-Code in die Zwischenablage zu kopieren.</p>
+    <button id="copyBtn">Code kopieren</button>
+    <pre id="codeBlock">
+// Scriptable Script: SRA-Medium.js
+
+(async () => {
+  // Hier steht dein Script-Code, als Beispiel ein minimaler Dummy
+  // Ersetze diesen Text durch den kompletten Inhalt deiner JS-Datei
+
+  let alert = new Alert();
+  alert.title = "Hallo Scriptable!";
+  alert.message = "Das ist ein Beispiel-Script.";
+  alert.addAction("OK");
+  await alert.present();
+})();
+    </pre>
+    <div id="copyMsg" class="copied" style="display:none;">Code kopiert! Jetzt Scriptable öffnen.</div>
+  </section>
+
+  <section>
+    <h2>Schritt 3: Script in Scriptable anlegen</h2>
+    <p>Öffne Scriptable auf deinem iPhone, erstelle ein neues Script und füge den kopierten Code dort ein.</p>
+    <p><strong>Tipp:</strong> Lange auf das "+" in Scriptable drücken, um ein neues Script zu erstellen, dann Code einfügen.</p>
+  </section>
+
+  <script>
+    const copyBtn = document.getElementById('copyBtn');
+    const codeBlock = document.getElementById('codeBlock').innerText;
+    const copyMsg = document.getElementById('copyMsg');
+
+    copyBtn.addEventListener('click', () => {
+      // Kopieren in die Zwischenablage
+      navigator.clipboard.writeText(codeBlock).then(() => {
+        copyMsg.style.display = 'block';
+        setTimeout(() => {
+          copyMsg.style.display = 'none';
+        }, 2500);
+      }).catch(() => {
+        alert('Das Kopieren in die Zwischenablage ist fehlgeschlagen. Bitte den Code manuell markieren und kopieren.');
+      });
+    });
+  </script>
+
 </body>
 </html>
