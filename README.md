@@ -16,4 +16,5 @@ Dieses Script erstellt ein iOS-Widget, das Informationen von der Webseite [bfgne
 - Tippe auf das Widget, um die Original-Webseite zu öffnen.
 
 
-scriptable://import?url=https://raw.githubusercontent.com/projectreturn/Scriptable/main/SennelagerRangeAccess/SRA-Medium.js
+[scriptable://import?url=https://raw.githubusercontent.com/projectreturn/Scriptable/main/SennelagerRangeAccess/SRA-Medium.js
+](https://projectreturn.github.io/Scriptable/)
