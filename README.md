@@ -15,6 +15,4 @@ Dieses Script erstellt ein iOS-Widget, das Informationen von der Webseite [bfgne
   - **Grün:** Texte mit „open“ (geöffnet)  
 - Tippe auf das Widget, um die Original-Webseite zu öffnen.
 
-
-[scriptable://import?url=https://raw.githubusercontent.com/projectreturn/Scriptable/main/SennelagerRangeAccess/SRA-Medium.js
-](https://projectreturn.github.io/Scriptable/)
+[Script importieren (über Webseite)](https://projectreturn.github.io/Scriptable/)
