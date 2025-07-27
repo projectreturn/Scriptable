@@ -85,38 +85,45 @@
   </section>
 
   <script>
-    const copyBtn = document.getElementById('copyBtn');
-    const copyMsg = document.getElementById('copyMsg');
+  const copyBtn = document.getElementById('copyBtn');
+  const copyMsg = document.getElementById('copyMsg');
+  const codeBlock = document.getElementById('codeBlock');
 
-    const scriptURL = 'https://raw.githubusercontent.com/projectreturn/Scriptable/main/SennelagerRangeAccess/SRA-Medium.js';
+  const scriptURL = 'https://raw.githubusercontent.com/projectreturn/Scriptable/main/SennelagerRangeAccess/SRA-Medium.js';
 
-    async function loadAndCopy() {
-      copyBtn.disabled = true;
-      copyBtn.textContent = 'Lade Script...';
+  let cachedScript = '';
 
-      try {
-        const response = await fetch(scriptURL);
-        if (!response.ok) throw new Error('Netzwerkfehler');
-
-        const text = await response.text();
-
-        await navigator.clipboard.writeText(text);
-        copyMsg.style.display = 'block';
-        copyBtn.textContent = 'SRA-Medium.js kopiert!';
-      } catch (e) {
-        alert('Fehler beim Laden des Scripts: ' + e.message);
-        copyBtn.textContent = 'Erneut versuchen';
-      } finally {
-        copyBtn.disabled = false;
-        setTimeout(() => {
-          copyMsg.style.display = 'none';
-          copyBtn.textContent = 'SRA-Medium.js kopieren';
-        }, 2500);
-      }
+  // Lädt das Script beim Seitenladen vor
+  async function preloadScript() {
+    try {
+      const response = await fetch(scriptURL);
+      if (!response.ok) throw new Error('Netzwerkfehler');
+      cachedScript = await response.text();
+      if (codeBlock) codeBlock.textContent = 'Script geladen und bereit zum Kopieren.';
+    } catch {
+      if (codeBlock) codeBlock.textContent = 'Fehler beim Laden des Scripts.';
     }
+  }
 
-    copyBtn.addEventListener('click', loadAndCopy);
-  </script>
+  // Kopiert den vorab geladenen Scripttext in die Zwischenablage beim Klick
+  async function copyScript() {
+    if (!cachedScript) {
+      alert('Script ist nicht geladen. Bitte Seite neu laden.');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(cachedScript);
+      copyMsg.style.display = 'block';
+      setTimeout(() => {
+        copyMsg.style.display = 'none';
+      }, 2500);
+    } catch {
+      alert('Kopieren fehlgeschlagen. Bitte den Code manuell markieren und kopieren.');
+    }
+  }
 
+  copyBtn.addEventListener('click', copyScript);
+  window.addEventListener('load', preloadScript);
+</script>
 </body>
 </html>
