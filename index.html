@@ -38,17 +38,6 @@
     button:hover {
       background-color: #005ecb;
     }
-    pre {
-      background: #222;
-      color: #0f0;
-      padding: 1rem;
-      border-radius: 8px;
-      text-align: left;
-      font-size: 1rem;
-      overflow-x: auto;
-      user-select: all;
-      margin-top: 1rem;
-    }
     .copied {
       color: green;
       margin-top: 0.5rem;
@@ -82,47 +71,51 @@
 
   <section>
     <h2>Schritt 2: Source-Code kopieren</h2>
-    <p>Klicke auf den Button, um den Script-Code in die Zwischenablage zu kopieren.</p>
-    <button id="copyBtn">Code kopieren</button>
-    <pre id="codeBlock">
-// Scriptable Script: SRA-Medium.js
-
-(async () => {
-  // Hier steht dein Script-Code, als Beispiel ein minimaler Dummy
-  // Ersetze diesen Text durch den kompletten Inhalt deiner JS-Datei
-
-  let alert = new Alert();
-  alert.title = "Hallo Scriptable!";
-  alert.message = "Das ist ein Beispiel-Script.";
-  alert.addAction("OK");
-  await alert.present();
-})();
-    </pre>
+    <p>Mit dem Button unten wird der Script-Code in die Zwischenablage kopiert.</p>
+    <button id="copyBtn">SRA-Medium.js kopieren</button>
     <div id="copyMsg" class="copied" style="display:none;">Code kopiert! Jetzt Scriptable öffnen.</div>
   </section>
 
   <section>
-    <h2>Schritt 3: Script in Scriptable anlegen</h2>
-    <p>Öffne Scriptable auf deinem iPhone, erstelle ein neues Script und füge den kopierten Code dort ein.</p>
-    <p><strong>Tipp:</strong> Lange auf das "+" in Scriptable drücken, um ein neues Script zu erstellen, dann Code einfügen.</p>
+    <h2>Schritt 3: Neues Script in Scriptable erstellen</h2>
+    <p>Klicke den Button, um Scriptable zu öffnen und ein neues Script zu erstellen.</p>
+    <button onclick="window.location.href='scriptable:///add'">
+      Neues Script in Scriptable öffnen
+    </button>
   </section>
 
   <script>
     const copyBtn = document.getElementById('copyBtn');
-    const codeBlock = document.getElementById('codeBlock').innerText;
     const copyMsg = document.getElementById('copyMsg');
 
-    copyBtn.addEventListener('click', () => {
-      // Kopieren in die Zwischenablage
-      navigator.clipboard.writeText(codeBlock).then(() => {
+    const scriptURL = 'https://raw.githubusercontent.com/projectreturn/Scriptable/main/SennelagerRangeAccess/SRA-Medium.js';
+
+    async function loadAndCopy() {
+      copyBtn.disabled = true;
+      copyBtn.textContent = 'Lade Script...';
+
+      try {
+        const response = await fetch(scriptURL);
+        if (!response.ok) throw new Error('Netzwerkfehler');
+
+        const text = await response.text();
+
+        await navigator.clipboard.writeText(text);
         copyMsg.style.display = 'block';
+        copyBtn.textContent = 'SRA-Medium.js kopiert!';
+      } catch (e) {
+        alert('Fehler beim Laden des Scripts: ' + e.message);
+        copyBtn.textContent = 'Erneut versuchen';
+      } finally {
+        copyBtn.disabled = false;
         setTimeout(() => {
           copyMsg.style.display = 'none';
+          copyBtn.textContent = 'SRA-Medium.js kopieren';
         }, 2500);
-      }).catch(() => {
-        alert('Das Kopieren in die Zwischenablage ist fehlgeschlagen. Bitte den Code manuell markieren und kopieren.');
-      });
-    });
+      }
+    }
+
+    copyBtn.addEventListener('click', loadAndCopy);
   </script>
 
 </body>
