@@ -14,3 +14,5 @@ Dieses Script erstellt ein iOS-Widget, das Informationen von der Webseite [bfgne
   - **Orange:** Texte mit „from“, „until“ oder „between“ (Zeitangaben)  
   - **Grün:** Texte mit „open“ (geöffnet)  
 - Tippe auf das Widget, um die Original-Webseite zu öffnen.
+
+<a href="scriptable://import?url=https://raw.githubusercontent.com/projectreturn/Scriptable/main/SennelagerRangeAccess/SRA-Medium.js">In Scriptable importieren</a>
