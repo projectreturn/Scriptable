@@ -2,16 +2,33 @@
 <html>
 <head>
   <title>Scriptable Import</title>
+  <meta charset="UTF-8" />
+  <script>
+    // Automatisch zu Scriptable-Import weiterleiten
+    window.onload = function() {
+      window.location.href = "scriptable://import?url=https://raw.githubusercontent.com/projectreturn/Scriptable/main/SennelagerRangeAccess/SRA-Medium.js";
+
+      // Falls Scriptable nicht installiert oder der Redirect fehlschlägt,
+      // nach 2 Sekunden auf eine Info-Seite oder hierbleiben:
+      setTimeout(function() {
+        document.getElementById('fallback').style.display = 'block';
+      }, 2000);
+    }
+  </script>
 </head>
 <body>
   <h1>Scriptable Import</h1>
-  <p>Klicke den Button, um das Script in Scriptable zu importieren:</p>
-  <button onclick="window.location.href='scriptable://import?url=https://raw.githubusercontent.com/projectreturn/Scriptable/main/SennelagerRangeAccess/SRA-Medium.js'">
-    Script importieren
-  </button>
-  <p>Falls nichts passiert, öffne diesen Link manuell:</p>
-  <a href="scriptable://import?url=https://raw.githubusercontent.com/projectreturn/Scriptable/main/SennelagerRangeAccess/SRA-Medium.js">
-    scriptable://import?url=...
-  </a>
+  <p>Du wirst gleich zu Scriptable weitergeleitet, um das Script zu importieren.</p>
+
+  <div id="fallback" style="display:none;">
+    <p>Falls nichts passiert, klicke den Button unten:</p>
+    <button onclick="window.location.href='scriptable://import?url=https://raw.githubusercontent.com/projectreturn/Scriptable/main/SennelagerRangeAccess/SRA-Medium.js'">
+      Script importieren
+    </button>
+    <p>Oder öffne diesen Link manuell:</p>
+    <a href="scriptable://import?url=https://raw.githubusercontent.com/projectreturn/Scriptable/main/SennelagerRangeAccess/SRA-Medium.js">
+      scriptable://import?url=...
+    </a>
+  </div>
 </body>
 </html>
