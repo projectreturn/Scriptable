@@ -14,5 +14,3 @@ Dieses Script erstellt ein iOS-Widget, das Informationen von der Webseite [bfgne
   - **Orange:** Texte mit „from“, „until“ oder „between“ (Zeitangaben)  
   - **Grün:** Texte mit „open“ (geöffnet)  
 - Tippe auf das Widget, um die Original-Webseite zu öffnen.
-
-[Script importieren (über Webseite)](https://projectreturn.github.io/Scriptable/)
